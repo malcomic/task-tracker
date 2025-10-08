@@ -1,33 +1,38 @@
+import React from "react";
 import { useState } from "react";
+import '../App.css';
 
 function TaskForm({ onAddTask }) {
-  const [text, setText] = useState("");
+    const [text, setText] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!text.trim()) return;
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!text.trim()) return;
+        
+        onAddTask(text);
+        setText('');
+    };
 
-    onAddTask(text);
-    setText("");
-  };
-
-  return (
-    <form onSubmit={handleSubmit} className="flex gap-2 mb-4">
-      <input
-        type="text"
-        placeholder="Add a new task..."
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        className="flex-1 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-200"
-      />
-      <button
-        type="submit"
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-      >
-        Add
-      </button>
-    </form>
-  );
+    return (
+        <form onSubmit={handleSubmit} className="task-form">
+            <div className="input-container">
+                <input
+                    type="text"
+                    placeholder="✨ What amazing thing will you accomplish today?"
+                    value={text}
+                    onChange={(e) => setText(e.target.value)}
+                    className="task-input"
+                />
+                <button 
+                    type="submit" 
+                    className="task-button"
+                    disabled={!text.trim()}
+                >
+                    🚀 Add Task
+                </button>
+            </div>
+        </form>
+    );
 }
 
 export default TaskForm;

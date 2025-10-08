@@ -1,35 +1,28 @@
 import TaskItem from './taskitem';
+import '../App.css';
 
-function TaskList({ tasks, onToggleTask, onDeleteTask }) {
+function TaskList({ tasks, onToggleTask, onDeleteTask, onEditTask }) {
     if (tasks.length === 0) {
-        return<p style={{textAlign: "center"}}>No task yet</p>
+        return (
+            <div className="empty-state">
+                <p>🎉 No tasks found! Time to relax or add new tasks above.</p>
+            </div>
+        );
     }
 
     return (
-        <ul style={styles.list}>
+        <ul className="task-list">
             {tasks.map(task => (
                 <TaskItem 
                     key={task.id} 
                     task={task} 
-                    onToggleTask={() => onToggleTask(task.id)} 
-                    onDeleteTask={() => onDeleteTask(task.id)} 
+                    onToggleTask={onToggleTask}
+                    onDeleteTask={onDeleteTask}
+                    onEditTask={onEditTask}
                 />
             ))}
         </ul>
     );
 }
-
-
-
-const styles = {
-    list: {
-        listStyle: 'none',
-        padding: 0,
-        margin: 0,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '0.5rem',
-    }
-};
 
 export default TaskList;
